@@ -34,11 +34,11 @@ import {
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import Lottie from 'lottie-react-native';
 import HomeIcon from './assets/home_icon.jsx';
 import UserIcon from './assets/user_icon.jsx';
 import MenuIcon from './assets/menu_icon.jsx';
-
+import Scroll from './components/Test.js';
 const Stack = createNativeStackNavigator();
 
 const HomeScreen = ({navigation}) => {
@@ -52,20 +52,28 @@ const HomeScreen = ({navigation}) => {
     // DO THE THING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // DO THE THING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // DO THE THING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  }
+  };
 
   return (
     <View>
-      <MenuIcon  onclick={toggle_menu}/>
+      <MenuIcon onclick={toggle_menu} />
+      <Lottie
+        style={styles.ship}
+        source={require('./assets/rocketship_animation.json')}
+        autoPlay
+        loop
+      />
     </View>
   );
 };
-const ProfileScreen = ({navigation, route}) => {
-  return <Text>This is {route.params.name}'s profile</Text>;
+
+const ProfileScreen = ({navigation}) => {
+  return <Scroll />;
 };
-const Login = ({navigation, route}) => {
-  return <Text>Login</Text>;
-};
+
+// const Test = ({navigation, route}) => {
+//   return <AsyncTest />
+// };
 
 const App: () => Node = () => {
   useEffect(() => {
@@ -86,6 +94,16 @@ const App: () => Node = () => {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
+          name="Scroll"
+          component={ProfileScreen}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'Scroll',
+            tabBarIcon: () => {
+              return <UserIcon />;
+            },
+          }}></Tab.Screen>
+        <Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{
@@ -95,22 +113,15 @@ const App: () => Node = () => {
               return <HomeIcon />;
             },
           }}></Tab.Screen>
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          initialParams={{name: 'Test'}}
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: () => {
-              return <UserIcon />;
-            },
-          }}></Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
+  ship: {
+    width: 400,
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
